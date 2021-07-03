@@ -1,6 +1,7 @@
 package com.leosbelpoll.mancala.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.leosbelpoll.mancala.exception.PlayException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -72,5 +73,97 @@ public class Game {
         else
             this.turn = user2;
         this.status = Status.IN_PROGRESS;
+    }
+
+    public void play(Integer position) {
+        Player currentPlayer;
+        Player player;
+
+        if(checkCurrentPlayer1()) {
+            currentPlayer = player1;
+            player = player2;
+        } else {
+            currentPlayer = player2;
+            player = player1;
+        }
+        validPosition(currentPlayer, position);
+
+        int balls = currentPlayer.getPits()[position];
+        currentPlayer.getPits()[position] = 0;
+
+        int tempPosition = position + 1;
+        Player tempPLayer = currentPlayer;
+        boolean againPlay = false;
+
+        for (int i = balls; i > 0; i--) {
+            if(tempPLayer.getId().equals(currentPlayer.getId())) {
+                if(tempPosition < currentPlayer.getPits().length) {
+                    currentPlayer.addBall(tempPosition);
+                    int positionPitPlayer = pitsNumber - 1 - tempPosition;
+                    if(currentPlayer.getPits()[tempPosition] == 1 && i == 1 && player.getPits()[positionPitPlayer] > 0) {
+                        currentPlayer.addHut(1 + player.getPits()[positionPitPlayer]);
+                        currentPlayer.subtractBalls(tempPosition);
+                        player.subtractBalls(positionPitPlayer);
+                    }
+                } else {
+                    currentPlayer.goHut();
+                    tempPosition = -1;
+                    tempPLayer = player;
+                    if(i == 1)
+                        againPlay = true;
+                }
+            } else {
+                if(tempPosition < currentPlayer.getPits().length) {
+                    player.addBall(tempPosition);
+                } else {
+                    tempPLayer = currentPlayer;
+                    tempPosition = -1;
+                    i++;
+                }
+            }
+            tempPosition +=1;
+        }
+
+        endGame();
+
+        if(!againPlay) {
+            switchPlayer();
+        }
+    }
+
+    public void validPosition(Player player, Integer position) {
+        if (position > pitsNumber || position < 0)
+            throw new PlayException("Invalid position");
+        if(player.getPits()[position] == 0) {
+            throw new PlayException("Empty pit");
+        }
+    }
+
+    private void switchPlayer() {
+        if (checkCurrentPlayer1()) {
+            turn = player2.getUser();
+        } else {
+            turn = player1.getUser();
+        }
+    }
+
+    public boolean checkCurrentPlayer1() {
+        return turn.getId().equals(player1.getUser().getId());
+    }
+
+    public void endGame() {
+        if(checkEndGame()) {
+            status = Status.FINISHED;
+            player1.endGame();
+            player2.endGame();
+            if(player1.getHut() > player2.getHut()){
+                winner = player1.getUser();
+            } else if(player1.getHut() < player2.getHut()){
+                winner = player2.getUser();
+            }
+        }
+    }
+    public boolean checkEndGame() {
+        return Arrays.stream(player1.getPits()).allMatch(e -> e == 0) || Arrays.stream(player2.getPits()).allMatch(e -> e == 0);
     }
 }

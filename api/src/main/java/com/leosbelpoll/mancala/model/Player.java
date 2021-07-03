@@ -25,4 +25,28 @@ public class Player {
     private int[] pits;
 
     private int hut;
+
+    public void addBall(int position) {
+        this.getPits()[position] +=1;
+    }
+
+    public void subtractBalls(int pitPosition) {
+        this.getPits()[pitPosition] = 0;
+    }
+
+    public void goHut() {
+        hut +=1;
+    }
+
+    public void addHut(int amount) {
+        hut = hut+amount;
+    }
+
+    public void endGame() {
+        for (int i = 0; i < pits.length; i++) {
+            addHut(pits[i]);
+            pits[i] = 0;
+        }
+
+    }
 }
