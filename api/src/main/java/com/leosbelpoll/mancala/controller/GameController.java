@@ -45,4 +45,14 @@ public class GameController {
     public ResponseEntity<Game> play(@Parameter(description = "Game Id", example="1", required = true) @PathVariable Long id, @RequestBody PlayRequestDto requestDto) {
         return ResponseEntity.ok(gameService.play(id, requestDto.getUserId(), requestDto.getPitPosition()));
     }
+
+    @Operation(summary = "Get game")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Success", content = @Content( schema = @Schema(implementation = Game.class))),
+            @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content( schema = @Schema(implementation = String.class))),
+    })
+    @GetMapping("/{id}")
+    public ResponseEntity<Game> getGame(@Parameter(description = "Game Id", example="1", required = true) @PathVariable Long id) {
+        return ResponseEntity.ok(gameService.get(id));
+    }
 }
