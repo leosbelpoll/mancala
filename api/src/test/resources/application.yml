@@ -1,0 +1,10 @@
+spring:
+  jpa:
+    defer-datasource-initialization: true
+
+app:
+  configs:
+    pitsNumber: 6
+    ballsNumber: 4
+    maxPitsNumber: 10
+    maxBallsNumber: 10
