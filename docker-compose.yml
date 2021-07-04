@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  api:
+    build:
+      context: ./api
+    ports:
+      - "8085:8080"
+  client:
+    build:
+      context: ./client
+      args:
+        API_URL: http://localhost:8085/v1
+    ports:
+      - "3005:80"
+    depends_on:
+        - api
