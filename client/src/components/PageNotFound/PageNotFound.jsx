@@ -12,7 +12,7 @@ const PageNotFound = () => {
         </h3>
         <h6>Click the button to start a new game</h6>
         <br />
-        <NavLink to="/game" className="btn btn-primary btn-lg">
+        <NavLink to="/" className="btn btn-primary btn-lg">
           <i className="glyphicon glyphicon-play"></i> New game
         </NavLink>
       </div>

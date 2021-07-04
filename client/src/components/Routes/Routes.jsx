@@ -4,6 +4,7 @@ import Home from "components/Home";
 import Header from "components/Header";
 import PageNotFound from "components/PageNotFound";
 import Configuration from "components/Configuration";
+import Game from "components/Game";
 
 const Routes = () => {
   return (
@@ -12,6 +13,7 @@ const Routes = () => {
         <Header />
         <Switch>
           <Route path="/" component={Home} exact />
+          <Route path="/game" component={Game} exact />
           <Route path="/configuration" component={Configuration} exact />
           <Route component={PageNotFound} />
         </Switch>

@@ -1,0 +1,44 @@
+@import "variables";
+
+.game {
+  background: url("/images/wood.jpeg");
+  padding: 20px 40px;
+  width: fit-content;
+
+  margin: 50px auto;
+  box-shadow: -3px 3px 15px rgba(0, 0, 0, 0.9),
+    inset -3px 3px 15px rgba(0, 0, 0, 0.4) !important;
+  border-radius: 20px !important;
+  overflow: hidden;
+
+  .game-container {
+    display: flex;
+    justify-content: center;
+
+    .hole {
+      background: rgba(137, 77, 14, 0.3) !important;
+      box-shadow: inset -3px 3px 15px rgba(0, 0, 0, 0.9) !important;
+      color: rgba(245, 245, 245, 0.9);
+      align-items: center;
+      justify-content: center;
+      display: flex;
+    }
+
+    .hut {
+      justify-content: center;
+      align-items: center;
+      font-size: 2em;
+      padding: 20px;
+      margin: 0 10px;
+      width: 100px;
+      border-radius: 20px !important;
+      font-size: 3em;
+    }
+
+    .pits {
+      cursor: pointer;
+      display: flex;
+      justify-content: space-around;
+    }
+  }
+}

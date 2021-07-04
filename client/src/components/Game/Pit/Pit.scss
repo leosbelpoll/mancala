@@ -1,0 +1,18 @@
+.pit-wrapper {
+  &.disabled {
+    cursor: not-allowed;
+
+    .pit {
+      pointer-events: none;
+    }
+  }
+
+  .pit {
+    margin: 0 10px;
+    padding: 20px;
+    font-size: 2em;
+    width: 100px;
+    height: 100px;
+    border-radius: 50% !important;
+  }
+}
