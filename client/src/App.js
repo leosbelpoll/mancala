@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
 import { setInitialConfig } from "redux/actions/config";
 import { useEffect } from "react";
+import Routes from "components/Routes";
 
 function App({ setInitialConfig, config }) {
   const { maxPits, maxBalls } = config;
@@ -11,7 +12,7 @@ function App({ setInitialConfig, config }) {
     }
   }, [setInitialConfig, maxPits, maxBalls]);
 
-  return <h1>Mancala</h1>;
+  return <Routes />;
 }
 
 const mapStateToProps = (state) => {
